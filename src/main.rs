@@ -1,23 +1,24 @@
-// main.rs
-mod block; // Importa el módulo block
+mod block;
+mod blockchain;
+mod cli;
+mod errors;
 
-use block::Blockchain; // Importa la estructura Blockchain desde el módulo block
+// use blockchain::Blockchain;
+use cli::Cli;
 
-fn main() {
-    let mut blockchain = Blockchain::new(); // Crea una nueva instancia de la Blockchain
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let mut cli = Cli::new()?;
+    cli.run()?;
 
-    // Agrega algunos bloques a la cadena de bloques
-    blockchain
-        .add_block("Data for Block 1".to_string())
-        .unwrap();
-    blockchain
-        .add_block("Data for Block 2".to_string())
-        .unwrap();
+    Ok(())
 
-    // Imprime la cadena de bloques
-    for block in &blockchain.blocks {
-        println!("Hash: {}", block.get_hash());
-        println!("Data: {}", block.transactions);
-        println!("Height: {}\n", block.height);
-    }
+    //     let mut blockchain = Blockchain::new().unwrap();
+
+    //     blockchain.add_block("Data 1".to_string()).unwrap();
+    //     blockchain.add_block("Data 2".to_string()).unwrap();
+    //     blockchain.add_block("Data 3".to_string()).unwrap();
+
+    //     for block in blockchain.iter() {
+    //         println!("{:?}", block);
+    //     }
 }
